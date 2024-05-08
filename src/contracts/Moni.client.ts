@@ -6,7 +6,7 @@
 
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
 import { Coin, StdFee } from "@cosmjs/amino";
-import {Addr, Uint128, InstantiateMsg, Empty, ExecuteMsg, Binary, Cw20ReceiveMsg, QueryMsg} from "./Moni.types";
+import {Addr, Uint128, InstantiateMsg, Empty, ExecuteMsg, Binary, Cw20ReceiveMsg, QueryMsg, ConfigResponse} from "./Moni.types";
 export interface MoniReadOnlyInterface {
   contractAddress: string;
   getConfig: () => Promise<GetConfigResponse>;

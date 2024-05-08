@@ -2,10 +2,9 @@ export type Addr = string;
 export type Uint128 = string;
 export interface InstantiateMsg {
   cw20_address: Addr;
-  extension?: Empty | null;
+  extension?: (Empty | null) | null;
   max_tokens: number;
   name: string;
-  owner: Addr;
   symbol: string;
   token_code_id: number;
   token_uri: string;
@@ -24,3 +23,15 @@ export interface Cw20ReceiveMsg {
 export type QueryMsg = {
   get_config: {};
 };
+export interface ConfigResponse {
+  cw20_address: Addr;
+  cw721_address?: Addr | null;
+  extension?: Empty | null;
+  max_tokens: number;
+  name: string;
+  owner: Addr;
+  symbol: string;
+  token_uri: string;
+  unit_price: Uint128;
+  unused_token_id: number;
+}

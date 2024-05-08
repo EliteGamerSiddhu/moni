@@ -20,12 +20,14 @@ const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 const INSTANTIATE_TOKEN_REPLY_ID: u64 = 1;
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+
 pub fn instantiate(
     deps: DepsMut,
     env: Env,
     info: MessageInfo,
     msg: InstantiateMsg,
 ) -> Result<Response, ContractError> {
+
     set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
 
     if msg.unit_price == Uint128::new(0) {
@@ -56,20 +58,21 @@ pub fn instantiate(
             code_id: msg.token_code_id,
             msg: to_binary(&cw721_base::InstantiateMsg {
                 name: msg.name.clone(),
-                symbol: msg.symbol,
+                symbol: msg.symbol.clone(),
                 minter: env.contract.address.to_string(),
             })?,
             funds: vec![],
             admin: None,
             label: String::from("Instantiate fixed price NFT contract"),
         }
-        .into(),
+       .into(),
         id: INSTANTIATE_TOKEN_REPLY_ID,
         gas_limit: None,
         reply_on: ReplyOn::Success,
     }];
 
     Ok(Response::new().add_submessages(sub_msg))
+
 }
 
 // Reply callback triggered from cw721 contract instantiation
@@ -176,4 +179,30 @@ fn query_config(deps: Deps) -> StdResult<ConfigResponse> {
 }
 
 #[cfg(test)]
-mod tests {}
+mod tests {
+    use super::*;
+    use cosmwasm_std::testing::{mock_dependencies, mock_env, mock_info};
+
+    #[test]
+    fn make_nft(){
+        let mut deps = mock_dependencies();
+        let env = mock_env();
+
+        let msg = InstantiateMsg{
+            max_tokens : 5,
+            unit_price : Uint128::new(3),
+            name : "FirstFT".to_string(),
+            symbol : "FFT".to_string(),
+            token_code_id : 7046,
+            cw20_address : Addr::unchecked("orai1q9thmpmaqm0f8flccdmelhnwzkz5ueax46vyauxqz0ys73yrvf5ssluvnu".to_string()),
+            token_uri : "Sample".to_string(),
+            extension : None,
+        };
+        
+        instantiate(deps.as_mut(), env, mock_info("sender", &[]), msg).unwrap();
+
+        let own = CONFIG.load(&deps.storage).unwrap().owner;
+
+        assert_eq!(own, "sender".to_string())
+    }
+}
