@@ -14,7 +14,7 @@ use crate::state::Config;
 
 use cw721_base::helpers::Cw721Contract;
 
-const CONTRACT_NAME: &str = "crates.io:orai-nft";
+const CONTRACT_NAME: &str = "crates.io:moni";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 const INSTANTIATE_TOKEN_REPLY_ID: u64 = 1;
@@ -189,6 +189,7 @@ mod tests {
         let env = mock_env();
 
         let msg = InstantiateMsg{
+            owner: Addr::unchecked("orai13mrjuge8ajvv6mfltywzr5vnknftknk83dvag4".to_string()),
             max_tokens : 5,
             unit_price : Uint128::new(3),
             name : "FirstFT".to_string(),

@@ -169,6 +169,7 @@
       "cw20_address",
       "max_tokens",
       "name",
+      "owner",
       "symbol",
       "token_code_id",
       "token_uri",
@@ -181,14 +182,7 @@
       "extension": {
         "anyOf": [
           {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/Empty"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/definitions/Empty"
           },
           {
             "type": "null"
@@ -202,6 +196,9 @@
       },
       "name": {
         "type": "string"
+      },
+      "owner": {
+        "$ref": "#/definitions/Addr"
       },
       "symbol": {
         "type": "string"

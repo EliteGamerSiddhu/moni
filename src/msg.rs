@@ -8,6 +8,7 @@ use cw721_base::Extension;
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub struct InstantiateMsg {
+    pub owner: Addr,
     pub max_tokens: u32,
     pub unit_price: Uint128,
     pub name: String,

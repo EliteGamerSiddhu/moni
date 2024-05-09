@@ -2,9 +2,10 @@ export type Addr = string;
 export type Uint128 = string;
 export interface InstantiateMsg {
   cw20_address: Addr;
-  extension?: (Empty | null) | null;
+  extension?: Empty | null;
   max_tokens: number;
   name: string;
+  owner: Addr;
   symbol: string;
   token_code_id: number;
   token_uri: string;
