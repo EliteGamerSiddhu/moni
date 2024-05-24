@@ -1,10 +1,10 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
+use cw721_base::Extension;
+
 use cosmwasm_std::{Addr, Uint128};
 use cw_storage_plus::Item;
-
-use cw721_base::Extension;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct Config {

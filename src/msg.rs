@@ -1,11 +1,9 @@
-use cosmwasm_schema::QueryResponses;
-use schemars::JsonSchema;
-use serde::{Deserialize, Serialize};
+use cosmwasm_schema::{cw_serde, QueryResponses};
 
-use cosmwasm_std::{Addr, Binary, Uint128};
+use cosmwasm_std::{Addr, Uint128, Binary};
 use cw721_base::Extension;
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+#[cw_serde]
 #[serde(rename_all = "snake_case")]
 pub struct InstantiateMsg {
     pub owner: Addr,
@@ -19,21 +17,29 @@ pub struct InstantiateMsg {
     pub extension: Extension,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 pub enum ExecuteMsg {
     Receive(Cw20ReceiveMsg),
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema, QueryResponses)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
+pub struct Cw20ReceiveMsg {
+    pub sender: String,
+    pub amount: Uint128,
+    pub msg: Binary,
+}
+
+#[cw_serde]
+pub enum MigrateMsg {}
+
+#[cw_serde]
+#[derive(QueryResponses)]
 pub enum QueryMsg {
     #[returns(ConfigResponse)]
     GetConfig {},
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 pub struct ConfigResponse {
     pub owner: Addr,
     pub cw20_address: Addr,
@@ -45,12 +51,4 @@ pub struct ConfigResponse {
     pub token_uri: String,
     pub extension: Extension,
     pub unused_token_id: u32,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
-pub struct Cw20ReceiveMsg {
-    pub sender: String,
-    pub amount: Uint128,
-    pub msg: Binary,
 }

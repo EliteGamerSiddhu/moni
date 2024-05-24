@@ -50,6 +50,7 @@ schemars = "0.8.10"
 serde = { version = "1.0.144", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.31" }
 cosmwasm-schema = "1.1.4"
+prost = "0.12"
 
 [dev-dependencies]
 cosmwasm-schema = "1.1.1"

@@ -6,20 +6,23 @@ pub enum ContractError {
     #[error("{0}")]
     Std(#[from] StdError),
 
+    #[error("Unauthorized")]
+    Unauthorized {},
+
     #[error("Custom Error val: {val:?}")]
     CustomError { val: String },
-
+    
     #[error("InvalidUnitPrice")]
     InvalidUnitPrice {},
 
     #[error("InvalidMaxTokens")]
     InvalidMaxTokens {},
 
+    #[error("InvalidTokenReplyId")]
+    InvalidTokenReplyId {},
+
     #[error("Cw721AlreadyLinked")]
     Cw721AlreadyLinked {},
-
-    #[error("InvalidTokenReplyId")]
-    InvalidTokenReplyId,
 
     #[error("SoldOut")]
     SoldOut {},
